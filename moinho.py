@@ -11,18 +11,6 @@
 # TAD Posicao - START
 #####################################
 
-adjacentes = {
-    "a1": ({"coluna":"b" ,"linha": "1"}, {"coluna":"a" ,"linha": "2"}, {"coluna":"b" ,"linha": "2"}),
-    "b1": ({"coluna":"a" ,"linha": "1"}, {"coluna":"c" ,"linha": "1"}, {"coluna":"b" ,"linha": "2"}),
-    "c1": ({"coluna":"b" ,"linha": "1"}, {"coluna":"c" ,"linha": "2"}, {"coluna":"b" ,"linha": "2"}),
-    "a2": ({"coluna":"a" ,"linha": "1"}, {"coluna":"a" ,"linha": "3"}, {"coluna":"b" ,"linha": "2"}),
-    "b2": ({"coluna":"a" ,"linha": "1"}, {"coluna":"b" ,"linha": "1"}, {"coluna":"c" ,"linha": "1"}, {"coluna":"a" ,"linha": "2"}, {"coluna":"c", "linha": "2"}, {"coluna":"a", "linha": "3"}, {"coluna":"b", "linha": "3"}, {"coluna":"c", "linha": "3"}),
-    "c2": ({"coluna":"c" ,"linha": "1"}, {"coluna":"c" ,"linha": "3"}, {"coluna":"b" ,"linha": "2"}),
-    "a3": ({"coluna":"a" ,"linha": "2"}, {"coluna":"b" ,"linha": "3"}, {"coluna":"b" ,"linha": "2"}),
-    "b3": ({"coluna":"a" ,"linha": "3"}, {"coluna":"c" ,"linha": "3"}, {"coluna":"b" ,"linha": "2"}),
-    "c3": ({"coluna":"c" ,"linha": "2"}, {"coluna":"b" ,"linha": "2"}, {"coluna":"b" ,"linha": "3"})
-}
-
     # VALIDADOR DE ARGUMENTOS
     
 def validarArgumentos(coluna, linha):
@@ -84,14 +72,31 @@ def posicao_para_str(posicao):
     return posicao["coluna"] + "" + posicao["linha"]
 # TRANSFORMADORES - FINISH
 
+def getColNumber(col):
+    if col == 'a':
+        return 1
+    elif col == 'b':
+        return 2
+    else:
+        return 3
+
 # FUNCOES DE ALTO NIVEL
 def obter_posicoes_adjacentes(posicao):
     if not eh_posicao(posicao):
         raise ValueError("obter_posicoes_adjacentes: argumento invalido")
 
-    stringPos = posicao_para_str(posicao)
-    adj = adjacentes[stringPos]
-    return tuple(cria_posicao(p["coluna"], p["linha"]) for p in adj)
+    columnList = ['a', 'b', 'c']
+    colNumber = getColNumber(posicao["coluna"])
+    lineNumber = int(posicao["linha"])
+    adjacentList = []
+    for i in [colNumber - 1, colNumber, colNumber + 1]:
+        for j in [lineNumber -1, lineNumber, lineNumber + 1]:
+            if i >= 1 and i <= 3 and j >= 1 and j <= 3:
+                if((j != lineNumber and i == colNumber) or (j == lineNumber and i != colNumber)):
+                   adjacentList.append(cria_posicao(columnList[i - 1], str(j)))   
+
+
+    return tuple(adjacentList)
 # FUNCOES DE ALTO NIVEL - FINISH
 
 p1 = cria_posicao('a', '2')
