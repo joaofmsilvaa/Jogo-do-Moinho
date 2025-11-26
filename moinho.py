@@ -460,3 +460,56 @@ print("\n")
 
 # TAD Tabuleiro - FINISH
 #####################################
+
+def obter_movimento_manual(t, peca):
+    if not eh_tabuleiro(t) or not eh_peca(peca):
+        raise ValueError("obter_movimento_manual: argumentos invalidos")
+    
+    posicoes_jogador = obter_posicoes_jogador(t, peca)
+
+    eh_fase_colocacao = len(posicoes_jogador) < 3
+
+    if eh_fase_colocacao:
+        mensagem = "Turno do jogador. Escolha uma posicao: "
+        entrada = input(mensagem).strip().lower()
+        
+        # Validar formato da posição (ex: 'a1', 'b2', etc)
+        if not eh_posicao(cria_posicao(entrada[0], entrada[1])):
+            raise ValueError("obter_movimento_manual: escolha invalida")
+        
+        posicao = cria_posicao(entrada[0], entrada[1])
+        
+        # Verificar se a posição está livre
+        if not eh_posicao_livre(t, posicao):
+            raise ValueError("obter_movimento_manual: escolha invalida")
+        
+        return (posicao,)
+    
+    else:
+        # Fase de movimento
+        mensagem = "Turno do jogador. Escolha um movimento: "
+        entrada = input(mensagem).strip().lower()
+        
+        # Validar formato do movimento (ex: 'a1b1' para movimento, 'a1a1' para passar)
+        if not eh_posicao(cria_posicao(entrada[0], entrada[1])) or not eh_posicao(cria_posicao(entrada[2], entrada[3])):
+            raise ValueError("obter_movimento_manual: escolha invalida")
+        
+        posicao_origem = cria_posicao(entrada[0], entrada[1])
+        posicao_destino = cria_posicao(entrada[2], entrada[3])
+        
+        # Validar que a posição de origem contém uma peça do jogador
+        if not pecas_iguais(obter_peca(t, posicao_origem), peca):
+            raise ValueError("obter_movimento_manual: escolha invalida")
+        
+        # Se for um movimento (não é passar o turno)
+        if not posicoes_iguais(posicao_origem, posicao_destino):
+            # Validar que a posição de destino está livre
+            if not eh_posicao_livre(t, posicao_destino):
+                raise ValueError("obter_movimento_manual: escolha invalida")
+            
+            # Validar que o destino é adjacente à origem
+            posicoes_adjacentes = obter_posicoes_adjacentes(posicao_origem)
+            if posicao_destino not in posicoes_adjacentes:
+                raise ValueError("obter_movimento_manual: escolha invalida")
+        
+        return (posicao_origem, posicao_destino)
