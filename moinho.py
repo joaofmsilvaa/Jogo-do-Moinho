@@ -384,7 +384,10 @@ def tabuleiro_para_str(tabuleiro):
     return "\n".join(linhas)
 
 
-
+# ALTERAÇÃO (feito para os testes públicos):
+# Corrigi o mapeamento do tuplo 3x3 para o tabuleiro:
+# o primeiro índice do tuplo passa a ser a linha (1–3) e o segundo a coluna (a–c),
+# de forma a coincidir com a forma usada nos testes (tipo o teste 12).
 def tuplo_para_tabuleiro(tuplo):
     if (not isinstance(tuplo, tuple) or len(tuplo) != 3 or
         any(not isinstance(l, tuple) or len(l) != 3 for l in tuplo)):
@@ -394,9 +397,10 @@ def tuplo_para_tabuleiro(tuplo):
     colunas = ['a', 'b', 'c']
     linhas = ['1', '2', '3']
 
-    for c_idx, coluna in enumerate(colunas):
-        for l_idx, linha in enumerate(linhas):
-            inteiro = tuplo[c_idx][l_idx]
+    # li = índice da linha, co = índice da coluna
+    for li, linha in enumerate(linhas):          # 0→'1', 1→'2', 2→'3'
+        for co, coluna in enumerate(colunas):    # 0→'a', 1→'b', 2→'c'
+            inteiro = tuplo[li][co]              # primeiro índice = linha, segundo = coluna
             if inteiro not in (-1, 0, 1):
                 raise ValueError("tuplo_para_tabuleiro: argumento invalido")
             peca = obter_peca_por_inteiro(inteiro)
@@ -651,7 +655,10 @@ def obter_movimento_auto(tabuleiro, peca, dificuldade):
     return (posicoes_jogador[0], posicoes_jogador[0])
 
 
+
+# FUNÇÃO PRINCIPAL DO JOGO
 def moinho(peca, nivel):
+
     if peca not in ('[X]', '[O]') or nivel not in ('facil', 'normal', 'dificil'):
         raise ValueError('moinho: argumentos invalidos')
 
@@ -665,17 +672,20 @@ def moinho(peca, nivel):
     pecas_humano = 0
     pecas_cpu = 0
 
-    # Fase de colocacao
+    # Fase de colocacao  (ALTEREI ESTE METODO TODO)
     while pecas_humano < 3 or pecas_cpu < 3:
         print(tabuleiro_para_str(tab))
         if pecas_humano < 3 and pecas_cpu < 3:
             # primeiro o humano, depois o computador, como no exemplo
             if pecas_humano == pecas_cpu:
                 # turno do jogador (usa a auxiliar)
-                mov = obter_movimento_manual(tab, jogador)
-                pos = mov[0]
-                tab = coloca_peca(tab, jogador, pos)
-                pecas_humano += 1
+                try:
+                    mov = obter_movimento_manual(tab, jogador)
+                    pos = mov[0]
+                    tab = coloca_peca(tab, jogador, pos)
+                    pecas_humano += 1
+                except ValueError:
+                    continue
             else:
                 print(f"Turno do computador ({nivel}):")
                 mov = obter_movimento_auto(tab, cpu, nivel)
@@ -684,10 +694,13 @@ def moinho(peca, nivel):
                 pecas_cpu += 1
         elif pecas_humano < 3:
             # só humano ainda coloca
-            mov = obter_movimento_manual(tab, jogador)
-            pos = mov[0]
-            tab = coloca_peca(tab, jogador, pos)
-            pecas_humano += 1
+            try:
+                mov = obter_movimento_manual(tab, jogador)
+                pos = mov[0]
+                tab = coloca_peca(tab, jogador, pos)
+                pecas_humano += 1
+            except ValueError:
+                continue
         elif pecas_cpu < 3:
             print(f"Turno do computador ({nivel}):")
             mov = obter_movimento_auto(tab, cpu, nivel)
@@ -695,16 +708,19 @@ def moinho(peca, nivel):
             tab = coloca_peca(tab, cpu, pos)
             pecas_cpu += 1
 
-    # Fase de movimento
+    # Fase de movimento  (alterei a parte da peça chamada, nao vai corromper nada dw)
     turno = cria_copia_peca(jogador)
     while pecas_iguais(obter_ganhador(tab), cria_peca(' ')):
         print(tabuleiro_para_str(tab))
         if pecas_iguais(turno, jogador):
-            mov = obter_movimento_manual(tab, jogador)
-            orig, dest = mov
-            if not posicoes_iguais(orig, dest):
-                tab = move_peca(tab, orig, dest)
-            turno = cpu
+            try:
+                mov = obter_movimento_manual(tab, jogador)
+                orig, dest = mov
+                if not posicoes_iguais(orig, dest):
+                    tab = move_peca(tab, orig, dest)
+                turno = cpu
+            except ValueError:
+                continue
         else:
             print(f"Turno do computador ({nivel}):")
             orig, dest = obter_movimento_auto(tab, cpu, nivel)
@@ -715,6 +731,7 @@ def moinho(peca, nivel):
     print(tabuleiro_para_str(tab))
     print(peca_para_str(obter_ganhador(tab)))
     return peca_para_str(obter_ganhador(tab))
+
 
 
 #moinho('[X]', 'facil')
