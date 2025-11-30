@@ -734,4 +734,4 @@ def moinho(peca, nivel):
 
 
 
-#moinho('[X]', 'facil')
+moinho('[X]', 'facil')
