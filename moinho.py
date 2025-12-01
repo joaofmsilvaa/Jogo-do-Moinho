@@ -656,6 +656,10 @@ def obter_movimento_auto(tabuleiro, peca, dificuldade):
 
 
 
+
+
+
+
 # FUNÇÃO PRINCIPAL DO JOGO
 def moinho(peca, nivel):
 
@@ -735,3 +739,34 @@ def moinho(peca, nivel):
 
 
 #moinho('[X]', 'facil')
+
+################################################
+# Escolha da dificuldade                       #
+################################################ 
+def obter_dificuldade():
+    while True: # Lê a dificuldade escrita pelo utilizador e normaliza para minúsculas sem espaços
+        nivel = input("Escolha a dificuldade do jogo (facil, normal, dificil): ").strip().lower()
+        # Só aceita se for uma das opções permitidas
+        if nivel in ('facil', 'normal', 'dificil'):
+            return nivel
+        # Caso contrário, mostra mensagem de erro e volta a pedir
+        print("Dificuldade inválida. Por favor, escolha entre: facil, normal, dificil.")
+
+if __name__ == "__main__":
+    # Pede ao utilizador o nível de dificuldade para o CPU
+    dificuldade = obter_dificuldade()
+
+    # Pede ao utilizador para escolher o símbolo com que quer jogar
+    simbolo = input("Escolha seu símbolo [X/O]: ").strip().upper()
+
+    # Garante que o símbolo é válido; se não for, volta a pedir
+    while simbolo not in ('X', 'O'):
+        print("Símbolo inválido. Escolha X ou O.")
+        simbolo = input("Escolha seu símbolo [X/O]: ").strip().upper()
+
+    # Constrói a peça no formato esperado pela função moinho, por exemplo "[X]" ou "[O]"
+    peca = f'[{simbolo}]'
+
+    # Inicia o jogo do moinho com a peça escolhida e a dificuldade selecionada
+    resultado = moinho(peca, dificuldade)
+
