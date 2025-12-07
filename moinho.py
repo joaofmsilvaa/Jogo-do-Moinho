@@ -1,14 +1,9 @@
-# print(""" 
-#    A     B     C
-# 1  [ ] - [ ] - [ ]\n
-#    |  \\  |  /  | \n
-# 2  [ ] - [ ] - [ ]\n
-#    |  /  |  \\  | \n
-# 3  [ ] - [ ] - [ ]\n
-# """)
-
 def avaliar_tabuleiro(tabuleiro):
-    """Retorna 1 se X ganha, -1 se O ganha, 0 caso contrário."""
+    """ 
+        Retorna 1 se X ganha, -1 se O ganha, 0 caso contrário.
+        :param tabuleiro: tabuleiro
+        :return: inteiro
+    """
     ganhador = obter_ganhador(tabuleiro)
     if pecas_iguais(ganhador, cria_peca('X')):
         return 1
@@ -16,9 +11,15 @@ def avaliar_tabuleiro(tabuleiro):
         return -1
     return 0
 
-
 def minimax(tabuleiro, jogador, profundidade, seq_movimentos):
-    """Implementação direta do algoritmo fornecido no enunciado."""
+    """
+        Implementação direta do algoritmo fornecido no enunciado.
+        :param tabuleiro: tabuleiro
+        :param jogador: peça do jogador atual
+        :param profundidade: profundidade máxima da pesquisa
+        :param seq_movimentos: sequência de movimentos até ao momento
+        :return: tuplo (valor do tabuleiro, sequência de movimentos)
+    """
     
     # 1 — Caso terminal: vitória ou profundidade = 0
     resultado_terminal = avaliar_tabuleiro(tabuleiro)
@@ -84,6 +85,14 @@ def minimax(tabuleiro, jogador, profundidade, seq_movimentos):
 # VALIDADOR DE ARGUMENTOS
     
 def validarArgumentos(coluna, linha):
+    '''
+    Validação dos argumentos para a criação de uma posição.
+    Lança ValueError se os argumentos forem inválidos.
+    
+    :param coluna: string igual a 'a', 'b' ou 'c'
+    :param linha: string igual a '1', '2' ou '3'
+    :return: True se os argumentos forem válidos
+    '''
     if not (isinstance(coluna, str) and isinstance(linha, str)):
         raise ValueError("cria_posicao: argumentos invalidos")
     if coluna not in ['a', 'b', 'c']:
@@ -91,7 +100,6 @@ def validarArgumentos(coluna, linha):
     if linha not in ['1', '2', '3']:
         raise ValueError("cria_posicao: argumentos invalidos")
     return True
-# VALIDADOR DE ARGUMENTOS - FINISH
 
 # CONSTRUTORES
 def cria_posicao (coluna, linha):
@@ -752,7 +760,7 @@ def obter_dificuldade():
         # Caso contrário, mostra mensagem de erro e volta a pedir
         print("Dificuldade inválida. Por favor, escolha entre: facil, normal, dificil.")
 
-if __name__ == "__main__":
+def jogar_moinho():
     # Pede ao utilizador o nível de dificuldade para o CPU
     dificuldade = obter_dificuldade()
 
@@ -768,5 +776,6 @@ if __name__ == "__main__":
     peca = f'[{simbolo}]'
 
     # Inicia o jogo do moinho com a peça escolhida e a dificuldade selecionada
-    resultado = moinho(peca, dificuldade)
+    moinho(peca, dificuldade)
 
+jogar_moinho()
