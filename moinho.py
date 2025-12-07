@@ -169,12 +169,24 @@ def obter_posicoes_adjacentes(posicao):
     l_idx = linhas.index(posicao["linha"])
     res = []
 
-    for j in range(len(linhas)):      # linhas (1,2,3)
-        for i in range(len(colunas)): # colunas (a,b,c)
-            if i == c_idx and abs(j - l_idx) == 1:
-                res.append(cria_posicao(colunas[i], linhas[j]))
-            elif j == l_idx and abs(i - c_idx) == 1:
-                res.append(cria_posicao(colunas[i], linhas[j]))
+    adj_dict = {
+        "00": ["b1", "a2", "b2"],
+        "01": ["a1", "b2", "a3"],
+        "02": ["b3", "a2", "b2"],
+
+        "10": ["a1", "b2", "c1"],
+        "11": ["a1","a2","a3", "b1", "b3", "c1", "c2", "c3"],
+        "12": ["a3", "b2", "c3"],
+
+        "20": ["b1", "c2", "b2"],
+        "21": ["c1", "b2", "c3"],
+        "22": ["b3", "c2", "b2"],
+    }
+
+    chave = str(c_idx) + str(l_idx)
+
+    for pos_str in adj_dict[chave]:
+        res.append(cria_posicao(pos_str[0], pos_str[1]))
 
     return tuple(res)
 # FUNCOES DE ALTO NIVEL - FINISH
