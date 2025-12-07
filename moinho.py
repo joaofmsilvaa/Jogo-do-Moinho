@@ -147,22 +147,13 @@ def posicoes_iguais(posicao1, posicao2):
 
 # TRANSFORMADORES
 def posicao_para_str(posicao):
-    return posicao["coluna"] + posicao["linha"]
+    c = posicao["coluna"]
+    l = posicao["linha"]
+    return c + l
 # TRANSFORMADORES - FINISH
-
-def getColNumber(col):
-    if col == 'a':
-        return 1
-    elif col == 'b':
-        return 2
-    else:
-        return 3
 
 # FUNCOES DE ALTO NIVEL
 def obter_posicoes_adjacentes(posicao):
-    if not eh_posicao(posicao):
-        raise ValueError("obter_posicoes_adjacentes: argumento invalido")
-
     colunas = ['a', 'b', 'c']
     linhas = ['1', '2', '3']
     c_idx = colunas.index(posicao["coluna"])
@@ -189,7 +180,6 @@ def obter_posicoes_adjacentes(posicao):
         res.append(cria_posicao(pos_str[0], pos_str[1]))
 
     return tuple(res)
-# FUNCOES DE ALTO NIVEL - FINISH
 
 # TAD Posicao - FINISH
 
