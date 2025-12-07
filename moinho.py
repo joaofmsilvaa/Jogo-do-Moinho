@@ -361,11 +361,7 @@ def eh_tabuleiro(arg):
         g = coluna_ganhadora(c)
         if g:
             ganhadores.add(g)
-
-    # apenas um ganhador é permitido
-    if len(ganhadores) > 1:
-        return False
-
+            
     return True
 
 def cria_tabuleiro():
@@ -550,8 +546,6 @@ def tuplo_para_tabuleiro(tuplo):
     for li, linha in enumerate(linhas):          # 0→'1', 1→'2', 2→'3'
         for co, coluna in enumerate(colunas):    # 0→'a', 1→'b', 2→'c'
             inteiro = tuplo[li][co]              # primeiro índice = linha, segundo = coluna
-            if inteiro not in (-1, 0, 1):
-                raise ValueError("tuplo_para_tabuleiro: argumento invalido")
             peca = obter_peca_por_inteiro(inteiro)
             tabuleiro[coluna + linha] = cria_copia_peca(peca)
 
