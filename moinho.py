@@ -1,3 +1,6 @@
+linhas = ["1","2","3"]
+colunas = ["a","b","c"]
+
 def avaliar_tabuleiro(tabuleiro):
     """ 
         Retorna 1 se X ganha, -1 se O ganha, 0 caso contrário.
@@ -116,7 +119,7 @@ def cria_copia_posicao(posicao):
         :param posicao: posição a copiar
         :return: nova posição com mesma linha e coluna
     """
-    return cria_posicao(posicao["coluna"], posicao["linha"])
+    return cria_posicao(obter_pos_c(posicao), obter_pos_l(posicao))
 # CONSTRUTORES - FINISH
 
 # SELECTORS
@@ -150,11 +153,11 @@ def eh_posicao(posicao):
         return False
     if "linha" not in posicao or "coluna" not in posicao:
         return False
-    if type(posicao["linha"]) != str or type(posicao["coluna"]) != str:
+    if type(obter_pos_l(posicao)) != str or type(obter_pos_c(posicao)) != str:
         return False
-    if posicao["linha"] not in ["1","2","3"]:
+    if obter_pos_l(posicao) not in linhas:
         return False
-    if posicao["coluna"] not in ["a","b","c"]:
+    if obter_pos_c(posicao) not in colunas:
         return False
     return True
 # RECONHECEDORES - FINISH
@@ -169,7 +172,7 @@ def posicoes_iguais(posicao1, posicao2):
     """
     if not eh_posicao(posicao1) or not eh_posicao(posicao2):
         return False
-    if posicao1["linha"] == posicao2["linha"] and posicao1["coluna"] == posicao2["coluna"]:
+    if obter_pos_l(posicao1) == obter_pos_l(posicao2) and obter_pos_c(posicao1) == obter_pos_c(posicao2):
         return True
     
     return False
@@ -182,8 +185,8 @@ def posicao_para_str(posicao):
         :param posicao: posição válida
         :return: string com coluna+linha
     """
-    c = posicao["coluna"]
-    l = posicao["linha"]
+    c = obter_pos_c(posicao)
+    l = obter_pos_l(posicao)
     return c + l
 # TRANSFORMADORES - FINISH
 
@@ -194,10 +197,8 @@ def obter_posicoes_adjacentes(posicao):
         :param posicao: posição válida
         :return: tupla de posições adjacentes
     """
-    colunas = ['a', 'b', 'c']
-    linhas = ['1', '2', '3']
-    c_idx = colunas.index(posicao["coluna"])
-    l_idx = linhas.index(posicao["linha"])
+    c_idx = colunas.index(obter_pos_c(posicao))
+    l_idx = linhas.index(obter_pos_l(posicao))
     res = []
 
     adj_dict = {
