@@ -4,12 +4,29 @@ eerrrr eu sou o João Silva
 Eu gosto de taça pistão e de laravel
 #neiipb
 
+ADORO TER CONTRIBUICAO
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
 
 Fogo. Chega. Chega bot joe. Para de falhar.
 Isto é um ABSURDO. CARAMBOLAS
 BOT JOE
 PARA QUIETO
 errr muslim
+
+BOT BOT
+BOT JOE
 
 IM DELETING YOU, BROTHER! ██]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]] 10% complete..... ████████]]]]]]]]]]]]]]]]]]]]] 35% complete.... ████████████]]]]]]]]]]]] 60% complete.... █████████████████] 99% complete.....
 
