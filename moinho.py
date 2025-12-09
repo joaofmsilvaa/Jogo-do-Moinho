@@ -208,6 +208,7 @@ def obter_posicoes_adjacentes(posicao):
 
         "10": ["a1", "b2", "c1"],
         "11": ["a1","a2","a3", "b1", "b3", "c1", "c2", "c3"],
+        "11": ["a1", "b1", "c1", "a2","c2","a3", "b3", "c3"],
         "12": ["b2", "a3", "c3"],
 
         "20": ["b1", "c2", "b2"],
@@ -339,7 +340,7 @@ def eh_tabuleiro(arg):
         return None
 
     def coluna_ganhadora(coluna):
-        pecas = [arg[f"{coluna}{l}"] for l in ['1', '2', '3']]
+        pecas = [arg[f"{coluna}{l}"] for l in linhas]
         if all(pecas_iguais(p, cria_peca('X')) for p in pecas):
             return '[X]'
         if all(pecas_iguais(p, cria_peca('O')) for p in pecas):
@@ -835,7 +836,7 @@ def moinho(peca, nivel):
 
     print(f"Bem-vindo ao JOGO DO MOINHO. Nivel de dificuldade {nivel}.")
 
-    tab = cria_tabuleiro()
+    tabuleiro = cria_tabuleiro()
     jogador = cria_peca(peca[1])
     cpu = cria_peca('X' if peca == '[O]' else 'O')
     turno = cria_copia_peca(jogador)
@@ -845,63 +846,63 @@ def moinho(peca, nivel):
 
     # Fase de colocacao  (ALTEREI ESTE METODO TODO)
     while pecas_humano < 3 or pecas_cpu < 3:
-        print(tabuleiro_para_str(tab))
+        print(tabuleiro_para_str(tabuleiro))
         if pecas_humano < 3 and pecas_cpu < 3:
             # primeiro o humano, depois o computador, como no exemplo
             if pecas_humano == pecas_cpu:
                 # turno do jogador (usa a auxiliar)
                 try:
-                    mov = obter_movimento_manual(tab, jogador)
+                    mov = obter_movimento_manual(tabuleiro, jogador)
                     pos = mov[0]
-                    tab = coloca_peca(tab, jogador, pos)
+                    tabuleiro = coloca_peca(tabuleiro, jogador, pos)
                     pecas_humano += 1
                 except ValueError:
                     continue
             else:
                 print(f"Turno do computador ({nivel}):")
-                mov = obter_movimento_auto(tab, cpu, nivel)
+                mov = obter_movimento_auto(tabuleiro, cpu, nivel)
                 pos = mov[0]
-                tab = coloca_peca(tab, cpu, pos)
+                tabuleiro = coloca_peca(tabuleiro, cpu, pos)
                 pecas_cpu += 1
         elif pecas_humano < 3:
             # só humano ainda coloca
             try:
-                mov = obter_movimento_manual(tab, jogador)
+                mov = obter_movimento_manual(tabuleiro, jogador)
                 pos = mov[0]
-                tab = coloca_peca(tab, jogador, pos)
+                tabuleiro = coloca_peca(tabuleiro, jogador, pos)
                 pecas_humano += 1
             except ValueError:
                 continue
         elif pecas_cpu < 3:
             print(f"Turno do computador ({nivel}):")
-            mov = obter_movimento_auto(tab, cpu, nivel)
+            mov = obter_movimento_auto(tabuleiro, cpu, nivel)
             pos = mov[0]
-            tab = coloca_peca(tab, cpu, pos)
+            tabuleiro = coloca_peca(tabuleiro, cpu, pos)
             pecas_cpu += 1
 
     # Fase de movimento  (alterei a parte da peça chamada, nao vai corromper nada dw)
     turno = cria_copia_peca(jogador)
-    while pecas_iguais(obter_ganhador(tab), cria_peca(' ')):
-        print(tabuleiro_para_str(tab))
+    while pecas_iguais(obter_ganhador(tabuleiro), cria_peca(' ')):
+        print(tabuleiro_para_str(tabuleiro))
         if pecas_iguais(turno, jogador):
             try:
-                mov = obter_movimento_manual(tab, jogador)
+                mov = obter_movimento_manual(tabuleiro, jogador)
                 orig, dest = mov
                 if not posicoes_iguais(orig, dest):
-                    tab = move_peca(tab, orig, dest)
+                    tabuleiro = move_peca(tabuleiro, orig, dest)
                 turno = cpu
             except ValueError:
                 continue
         else:
             print(f"Turno do computador ({nivel}):")
-            orig, dest = obter_movimento_auto(tab, cpu, nivel)
+            orig, dest = obter_movimento_auto(tabuleiro, cpu, nivel)
             if not posicoes_iguais(orig, dest):
-                tab = move_peca(tab, orig, dest)
+                tabuleiro = move_peca(tabuleiro, orig, dest)
             turno = jogador
 
-    print(tabuleiro_para_str(tab))
-    print(peca_para_str(obter_ganhador(tab)))
-    return peca_para_str(obter_ganhador(tab))
+    print(tabuleiro_para_str(tabuleiro))
+    vencedor = obter_ganhador(tabuleiro)
+    return peca_para_str(vencedor)
 
 
 
