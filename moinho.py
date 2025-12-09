@@ -263,8 +263,7 @@ def pecas_iguais(j1,j2):
         :param j2: segunda peça
         :return: True se iguais, False caso contrário
     """
-    if not eh_peca(j1) or not eh_peca(j2):
-        return False
+
     return j1 == j2
 
 def peca_para_str(j):
@@ -273,8 +272,7 @@ def peca_para_str(j):
         :param j: peça válida
         :return: string formatada representando a peça
     """
-    if not eh_peca(j):
-        raise ValueError("peca_para_str: argumento invalido")
+
     return "[" + j[0] + "]"
 
 def peca_para_inteiro(j):
@@ -283,8 +281,7 @@ def peca_para_inteiro(j):
         :param j: peça válida
         :return: inteiro correspondente
     """
-    if not eh_peca(j):
-        raise ValueError("peca_para_inteiro: argumento invalido")
+
     if j[0] == 'X':
         return 1
     if j[0] == 'O':
@@ -383,9 +380,7 @@ def cria_copia_tabuleiro(tabuleiro):
         :param tabuleiro: tabuleiro válido a copiar
         :return: novo dicionário representando o tabuleiro copiado
     """
-    if not eh_tabuleiro(tabuleiro):
-        raise ValueError("cria_copia_tabuleiro: argumento invalido")
-    
+
     novo_tabuleiro = {}
     for key, value in tabuleiro.items():
         novo_tabuleiro[key] = cria_copia_peca(value)
@@ -399,9 +394,7 @@ def obter_peca(tabuleiro, posicao):
         :param posicao: posição válida
         :return: peça na posição
     """
-    if not eh_tabuleiro(tabuleiro) or not eh_posicao(posicao):
-        raise ValueError("obter_peca: argumentos invalidos")
-    
+
     key = posicao_para_str(posicao)
     return tabuleiro[key]
 
@@ -412,9 +405,7 @@ def obter_vetor(tabuleiro, s):
         :param s: coluna ('a'..'c') ou linha ('1'..'3')
         :return: tupla de 3 peças
     """
-    if not isinstance(tabuleiro, dict) or not isinstance(s, str):
-        raise ValueError("obter_vetor: argumentos invalidos")
-    
+
     if s in ['a', 'b', 'c']:
         return tuple(tabuleiro[f"{s}{l}"] for l in ['1', '2', '3'])
     elif s in ['1', '2', '3']:
@@ -430,9 +421,7 @@ def coloca_peca(tabuleiro, peca, posicao):
         :param posicao: posição onde colocar a peça
         :return: tabuleiro alterado
     """
-    if not eh_tabuleiro(tabuleiro) or not eh_peca(peca) or not eh_posicao(posicao):
-        raise ValueError("coloca_peca: argumentos invalidos")
-    
+
     key = posicao_para_str(posicao)
     tabuleiro[key] = cria_copia_peca(peca)
 
@@ -445,9 +434,7 @@ def remove_peca(tabuleiro, posicao):
         :param posicao: posição a limpar
         :return: tabuleiro alterado
     """
-    if not eh_tabuleiro(tabuleiro) or not eh_posicao(posicao):
-        raise ValueError("remove_peca: argumentos invalidos")
-    
+
     key = posicao_para_str(posicao)
     tabuleiro[key] = cria_peca(' ')
 
@@ -461,9 +448,7 @@ def move_peca(tabuleiro,p1,p2):
         :param p2: posição de destino
         :return: tabuleiro alterado
     """
-    if not eh_tabuleiro(tabuleiro) or not eh_posicao(p1) or not eh_posicao(p2):
-        raise ValueError("move_peca: argumentos invalidos")
-    
+
     key1 = posicao_para_str(p1)
     key2 = posicao_para_str(p2)
     
@@ -479,9 +464,7 @@ def eh_posicao_livre(tabuleiro, posicao):
         :param posicao: posição válida
         :return: True se estiver livre, False caso contrário
     """
-    if not eh_tabuleiro(tabuleiro) or not eh_posicao(posicao):
-        raise ValueError("eh_posicao_livre: argumentos invalidos")
-    
+
     return obter_peca(tabuleiro, posicao) == [' ']
 
 def tabuleiros_iguais(tab1,tab2):
@@ -961,4 +944,4 @@ def jogar_moinho():
     # Inicia o jogo do moinho com a peça escolhida e a dificuldade selecionada
     moinho(peca, dificuldade)
 
-jogar_moinho()
+#jogar_moinho()
