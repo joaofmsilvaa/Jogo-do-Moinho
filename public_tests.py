@@ -11,7 +11,7 @@ print("Inicio dos testes publicos")
 print("---------------------")
 
 # TAD posicao
-# Teste 1: testa cria_posicao com argumentos inválidos (espera ValueError)
+# Teste 1: testa cria_posicao com argumentos invalidos (espera ValueError)
 num_tests += 1
 try:
     p1 = cria_posicao('a', '4')
@@ -56,7 +56,7 @@ else:
     print("Teste " + str(num_tests) + ": Falhou")
 
 # TAD peca
- # Teste 5: testa cria_peca com argumento inválido (minúscula)
+ # Teste 5: testa cria_peca com argumento invalido (minuscula)
 num_tests += 1
 try:
     j1 = cria_peca('x')
@@ -90,7 +90,7 @@ if peca_para_str(j1) == "[X]":
 else:
     print("Teste " + str(num_tests) + ": Falhou")
 
- # Teste 8: testa peca_para_inteiro para espaço (vazio)
+ # Teste 8: testa peca_para_inteiro para espaco (vazio)
 num_tests += 1
 if peca_para_inteiro(cria_peca(' ')) == 0:
     total_score += 1
@@ -132,7 +132,7 @@ if str_tab == "   a   b   c\n1 [ ]-[X]-[ ]\n   | \ | / |\n2 [ ]-[O]-[ ]\n   | / 
 else:
     print("Teste " + str(num_tests) + ": Falhou")
 
- # Teste 12: testa tuplo_para_tabuleiro e tabuleiro_para_str (exibição)
+ # Teste 12: testa tuplo_para_tabuleiro e tabuleiro_para_str (exibicao)
 num_tests += 1 # 12
 t = tuplo_para_tabuleiro(((0, 1, -1), (-0, 1, -1), (1, 0, -1)))
 str_tab = tabuleiro_para_str(t)
@@ -143,7 +143,7 @@ if str_tab == "   a   b   c\n1 [ ]-[X]-[O]\n   | \ | / |\n2 [ ]-[X]-[O]\n   | / 
 else:
     print("Teste " + str(num_tests) + ": Falhou")
 
- # Teste 13: testa obter_ganhador em tabuleiro específico
+ # Teste 13: testa obter_ganhador em tabuleiro especifico
 num_tests += 1
 t = tuplo_para_tabuleiro(((0, 1, -1), (-0, 1, -1), (1, 0, -1)))
 str_j = peca_para_str(obter_ganhador(t))
@@ -221,7 +221,7 @@ except:
     print("\nTeste " + str(num_tests) + ": Falhou")
     pass
 
- # Teste 19: testa obter_movimento_manual inválido (escolha inválida)
+ # Teste 19: testa obter_movimento_manual invalido (escolha invalida)
 num_tests += 1
 try:
     t = tuplo_para_tabuleiro(((0, 1, -1), (1, -1, 0), (1, -1, 0)))
@@ -299,7 +299,7 @@ def moinho_teste(jogador, modo, jogadas):
     return fim
 
 
- # Teste 25: testa função moinho com jogadas simuladas (resultado esperado '[O]')
+ # Teste 25: testa funcao moinho com jogadas simuladas (resultado esperado '[O]')
 num_tests += 1
 try:
     fim = moinho_teste('[X]', 'facil', 'a2\na1\nc1\nb2\nc2\na2\nc1c2\na1b1\nb1b2')

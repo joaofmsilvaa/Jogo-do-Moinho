@@ -3,7 +3,7 @@ colunas = ["a","b","c"]
 
 def avaliar_tabuleiro(tabuleiro):
     """ 
-        Retorna 1 se X ganha, -1 se O ganha, 0 caso contrário.
+        Retorna 1 se X ganha, -1 se O ganha, 0 caso contrario.
         :param tabuleiro: tabuleiro
         :return: inteiro
     """
@@ -16,20 +16,20 @@ def avaliar_tabuleiro(tabuleiro):
 
 def minimax(tabuleiro, jogador, profundidade, seq_movimentos):
     """
-        Implementação direta do algoritmo fornecido no enunciado.
+        Implementacao direta do algoritmo fornecido no enunciado.
         :param tabuleiro: tabuleiro
-        :param jogador: peça do jogador atual
-        :param profundidade: profundidade máxima da pesquisa
-        :param seq_movimentos: sequência de movimentos até ao momento
-        :return: tuplo (valor do tabuleiro, sequência de movimentos)
+        :param jogador: peca do jogador atual
+        :param profundidade: profundidade maxima da pesquisa
+        :param seq_movimentos: sequencia de movimentos ate ao momento
+        :return: tuplo (valor do tabuleiro, sequencia de movimentos)
     """
     
-    # 1 — Caso terminal: vitória ou profundidade = 0
+    # 1 — Caso terminal: vitoria ou profundidade = 0
     resultado_terminal = avaliar_tabuleiro(tabuleiro)
     if resultado_terminal != 0 or profundidade == 0:
         return (resultado_terminal, seq_movimentos)
 
-    # 2 — Caso não terminal: preparar melhor resultado
+    # 2 — Caso nao terminal: preparar melhor resultado
     outro_jogador = cria_peca('O') if pecas_iguais(jogador, cria_peca('X')) else cria_peca('X')
     
     # X maximiza, O minimiza
@@ -40,17 +40,17 @@ def minimax(tabuleiro, jogador, profundidade, seq_movimentos):
 
     melhor_seq_movimentos = None
 
-    # 3 — Percorrer peças do jogador
+    # 3 — Percorrer pecas do jogador
     for peca_pos in obter_posicoes_jogador(tabuleiro, jogador):
 
-        # 4 — Percorrer posições adjacentes
+        # 4 — Percorrer posicoes adjacentes
         for adj in obter_posicoes_adjacentes(peca_pos):
 
-            # 5 — Só interessa posição livre
+            # 5 — So interessa posicao livre
             if not eh_posicao_livre(tabuleiro, adj):
                 continue
 
-            # 6 — Criar nova cópia e aplicar movimento
+            # 6 — Criar nova copia e aplicar movimento
             novo_tab = cria_copia_tabuleiro(tabuleiro)
             move_peca(novo_tab, peca_pos, adj)
             movimento = (peca_pos, adj)
@@ -89,10 +89,10 @@ def minimax(tabuleiro, jogador, profundidade, seq_movimentos):
     
 def validarArgumentos(coluna, linha):
     """
-        Validação dos argumentos para a criação de uma posição.
+        Validacao dos argumentos para a criacao de uma posicao.
         :param coluna: string igual a 'a', 'b' ou 'c'
         :param linha: string igual a '1', '2' ou '3'
-        :return: True se os argumentos forem válidos
+        :return: True se os argumentos forem validos
     """
     if not (isinstance(coluna, str) and isinstance(linha, str)):
         raise ValueError("cria_posicao: argumentos invalidos")
@@ -105,19 +105,19 @@ def validarArgumentos(coluna, linha):
 # CONSTRUTORES
 def cria_posicao (coluna, linha):
     """
-        Cria e devolve uma posição como dicionário {'linha','coluna'}.
+        Cria e devolve uma posicao como dicionario {'linha','coluna'}.
         :param coluna: coluna ('a'|'b'|'c')
         :param linha: linha ('1'|'2'|'3')
-        :return: dicionário representando a posição
+        :return: dicionario representando a posicao
     """
     if validarArgumentos(coluna, linha):
         return {"linha": linha, "coluna": coluna}
 
 def cria_copia_posicao(posicao):
     """
-        Retorna cópia independente da posição dada.
-        :param posicao: posição a copiar
-        :return: nova posição com mesma linha e coluna
+        Retorna copia independente da posicao dada.
+        :param posicao: posicao a copiar
+        :return: nova posicao com mesma linha e coluna
     """
     return cria_posicao(obter_pos_c(posicao), obter_pos_l(posicao))
 # CONSTRUTORES - FINISH
@@ -125,16 +125,16 @@ def cria_copia_posicao(posicao):
 # SELECTORS
 def obter_pos_c(posicao):
     """
-        Retorna a coluna de uma posição.
-        :param posicao: posição válida
+        Retorna a coluna de uma posicao.
+        :param posicao: posicao valida
         :return: coluna ('a'|'b'|'c')
     """
     return posicao["coluna"]
 
 def obter_pos_l(posicao):
     """
-        Retorna a linha de uma posição.
-        :param posicao: posição válida
+        Retorna a linha de uma posicao.
+        :param posicao: posicao valida
         :return: linha ('1'|'2'|'3')
     """
     return posicao["linha"]
@@ -143,9 +143,9 @@ def obter_pos_l(posicao):
 # RECONHECEDORES
 def eh_posicao(posicao):
     """
-        Verifica se o objeto é uma posição válida.
+        Verifica se o objeto e uma posicao valida.
         :param posicao: objeto a validar
-        :return: True se for uma posição válida, False caso contrário
+        :return: True se for uma posicao valida, False caso contrario
     """
     if type(posicao) != dict:
         return False
@@ -165,10 +165,10 @@ def eh_posicao(posicao):
 # TESTES
 def posicoes_iguais(posicao1, posicao2):    
     """
-        Compara duas posições; True se tiverem mesma linha e coluna.
-        :param posicao1: primeira posição
-        :param posicao2: segunda posição
-        :return: True se iguais, False caso contrário
+        Compara duas posicoes; True se tiverem mesma linha e coluna.
+        :param posicao1: primeira posicao
+        :param posicao2: segunda posicao
+        :return: True se iguais, False caso contrario
     """
     if not eh_posicao(posicao1) or not eh_posicao(posicao2):
         return False
@@ -181,8 +181,8 @@ def posicoes_iguais(posicao1, posicao2):
 # TRANSFORMADORES
 def posicao_para_str(posicao):
     """
-        Converte posição para string/chave do tabuleiro (ex.: 'a1').
-        :param posicao: posição válida
+        Converte posicao para string/chave do tabuleiro (ex.: 'a1').
+        :param posicao: posicao valida
         :return: string com coluna+linha
     """
     c = obter_pos_c(posicao)
@@ -193,9 +193,9 @@ def posicao_para_str(posicao):
 # FUNCOES DE ALTO NIVEL
 def obter_posicoes_adjacentes(posicao):
     """
-        Devolve tupla com posições adjacentes à posição dada.
-        :param posicao: posição válida
-        :return: tupla de posições adjacentes
+        Devolve tupla com posicoes adjacentes a posicao dada.
+        :param posicao: posicao valida
+        :return: tupla de posicoes adjacentes
     """
     c_idx = colunas.index(obter_pos_c(posicao))
     l_idx = linhas.index(obter_pos_l(posicao))
@@ -231,7 +231,7 @@ def obter_posicoes_adjacentes(posicao):
 
 def eh_peca(arg):
     """
-        Verifica se o argumento é uma peça válida.
+        Verifica se o argumento e uma peca valida.
         :param arg: objeto a verificar
         :return: True se for ['X'], ['O'] ou [' ']
     """
@@ -239,9 +239,9 @@ def eh_peca(arg):
 
 def cria_peca(s):
     """
-        Cria uma peça a partir de um caracter 'X','O' ou ' '.
-        :param s: caracter representando a peça
-        :return: peça no formato lista, ex. ['X']
+        Cria uma peca a partir de um caracter 'X','O' ou ' '.
+        :param s: caracter representando a peca
+        :return: peca no formato lista, ex. ['X']
     """
     if not isinstance(s, str) or s not in ['X', 'O', ' ']:
         raise ValueError("cria_peca: argumento invalido")
@@ -249,9 +249,9 @@ def cria_peca(s):
 
 def cria_copia_peca(j):
     """
-        Retorna uma cópia independente da peça dada.
-        :param j: peça a copiar
-        :return: nova peça equivalente
+        Retorna uma copia independente da peca dada.
+        :param j: peca a copiar
+        :return: nova peca equivalente
     """
     if not eh_peca(j):
         raise ValueError("cria_copia_peca: argumento invalido")
@@ -259,27 +259,27 @@ def cria_copia_peca(j):
 
 def pecas_iguais(j1,j2):
     """
-        Compara duas peças e retorna True se forem iguais.
-        :param j1: primeira peça
-        :param j2: segunda peça
-        :return: True se iguais, False caso contrário
+        Compara duas pecas e retorna True se forem iguais.
+        :param j1: primeira peca
+        :param j2: segunda peca
+        :return: True se iguais, False caso contrario
     """
 
     return j1 == j2
 
 def peca_para_str(j):
     """
-        Converte peça para string no formato '[X]'/'[O]'/'[ ]'.
-        :param j: peça válida
-        :return: string formatada representando a peça
+        Converte peca para string no formato '[X]'/'[O]'/'[ ]'.
+        :param j: peca valida
+        :return: string formatada representando a peca
     """
 
     return "[" + j[0] + "]"
 
 def peca_para_inteiro(j):
     """
-        Mapeia peça para inteiro: X->1, O->-1, ' '->0.
-        :param j: peça válida
+        Mapeia peca para inteiro: X->1, O->-1, ' '->0.
+        :param j: peca valida
         :return: inteiro correspondente
     """
 
@@ -298,9 +298,9 @@ def peca_para_inteiro(j):
 
 def eh_tabuleiro(arg):
     """
-        Verifica se o objeto é um tabuleiro válido segundo as regras.
+        Verifica se o objeto e um tabuleiro valido segundo as regras.
         :param arg: objeto a validar
-        :return: True se for um tabuleiro válido, False caso contrário
+        :return: True se for um tabuleiro valido, False caso contrario
     """
     if not isinstance(arg, dict):
         return False
@@ -322,15 +322,15 @@ def eh_tabuleiro(arg):
             elif pecas_iguais(p, cria_peca('O')):
                 pecasO += 1
 
-    # Restrições numéricas (máx. 3 peças por jogador)
+    # Restricoes numericas (max. 3 pecas por jogador)
     if pecasX > 3 or pecasO > 3:
         return False
     
-    # diferença entre peças não pode ser maior que 1
+    # diferenca entre pecas nao pode ser maior que 1
     if abs(pecasX - pecasO) > 1:
         return False
 
-    # Ganhadores simultâneos não permitidos
+    # Ganhadores simultaneos nao permitidos
     def linha_ganhadora(linha):
         pecas = [arg[f"{c}{linha}"] for c in ['a', 'b', 'c']]
         if all(pecas_iguais(p, cria_peca('X')) for p in pecas):
@@ -365,8 +365,8 @@ def eh_tabuleiro(arg):
 
 def cria_tabuleiro():
     """
-        Cria um tabuleiro 3x3 inicial com todas as posições vazias.
-        :return: tabuleiro (dicionário)
+        Cria um tabuleiro 3x3 inicial com todas as posicoes vazias.
+        :return: tabuleiro (dicionario)
     """
     tabuleiro = {}
     for coluna in ['a', 'b', 'c']:
@@ -377,9 +377,9 @@ def cria_tabuleiro():
 
 def cria_copia_tabuleiro(tabuleiro):
     """
-        Retorna uma cópia profunda do tabuleiro (novas peças criadas).
-        :param tabuleiro: tabuleiro válido a copiar
-        :return: novo dicionário representando o tabuleiro copiado
+        Retorna uma copia profunda do tabuleiro (novas pecas criadas).
+        :param tabuleiro: tabuleiro valido a copiar
+        :return: novo dicionario representando o tabuleiro copiado
     """
 
     novo_tabuleiro = {}
@@ -390,10 +390,10 @@ def cria_copia_tabuleiro(tabuleiro):
 
 def obter_peca(tabuleiro, posicao):
     """
-        Obtém a peça na posição dada do tabuleiro.
-        :param tabuleiro: tabuleiro válido
-        :param posicao: posição válida
-        :return: peça na posição
+        Obtem a peca na posicao dada do tabuleiro.
+        :param tabuleiro: tabuleiro valido
+        :param posicao: posicao valida
+        :return: peca na posicao
     """
 
     key = posicao_para_str(posicao)
@@ -401,10 +401,10 @@ def obter_peca(tabuleiro, posicao):
 
 def obter_vetor(tabuleiro, s):
     """
-        Retorna tupla com as 3 peças de uma coluna ('a'..'c') ou linha ('1'..'3').
-        :param tabuleiro: tabuleiro válido
+        Retorna tupla com as 3 pecas de uma coluna ('a'..'c') ou linha ('1'..'3').
+        :param tabuleiro: tabuleiro valido
         :param s: coluna ('a'..'c') ou linha ('1'..'3')
-        :return: tupla de 3 peças
+        :return: tupla de 3 pecas
     """
 
     if s in ['a', 'b', 'c']:
@@ -416,10 +416,10 @@ def obter_vetor(tabuleiro, s):
 
 def coloca_peca(tabuleiro, peca, posicao):
     """
-        Coloca uma peça numa posição do tabuleiro (modifica o tabuleiro).
-        :param tabuleiro: tabuleiro válido
-        :param peca: peça a colocar
-        :param posicao: posição onde colocar a peça
+        Coloca uma peca numa posicao do tabuleiro (modifica o tabuleiro).
+        :param tabuleiro: tabuleiro valido
+        :param peca: peca a colocar
+        :param posicao: posicao onde colocar a peca
         :return: tabuleiro alterado
     """
 
@@ -430,9 +430,9 @@ def coloca_peca(tabuleiro, peca, posicao):
 
 def remove_peca(tabuleiro, posicao):
     """
-        Remove a peça numa posição (substitui por espaço) e retorna o tabuleiro.
-        :param tabuleiro: tabuleiro válido
-        :param posicao: posição a limpar
+        Remove a peca numa posicao (substitui por espaco) e retorna o tabuleiro.
+        :param tabuleiro: tabuleiro valido
+        :param posicao: posicao a limpar
         :return: tabuleiro alterado
     """
 
@@ -443,10 +443,10 @@ def remove_peca(tabuleiro, posicao):
 
 def move_peca(tabuleiro,p1,p2):
     """
-        Move peça de p1 para p2 (modifica e retorna o tabuleiro).
-        :param tabuleiro: tabuleiro válido
-        :param p1: posição de origem
-        :param p2: posição de destino
+        Move peca de p1 para p2 (modifica e retorna o tabuleiro).
+        :param tabuleiro: tabuleiro valido
+        :param p1: posicao de origem
+        :param p2: posicao de destino
         :return: tabuleiro alterado
     """
 
@@ -460,20 +460,20 @@ def move_peca(tabuleiro,p1,p2):
 
 def eh_posicao_livre(tabuleiro, posicao):
     """
-        Verifica se uma posição está livre (contém [' ']).
-        :param tabuleiro: tabuleiro válido
-        :param posicao: posição válida
-        :return: True se estiver livre, False caso contrário
+        Verifica se uma posicao esta livre (contem [' ']).
+        :param tabuleiro: tabuleiro valido
+        :param posicao: posicao valida
+        :return: True se estiver livre, False caso contrario
     """
 
     return obter_peca(tabuleiro, posicao) == [' ']
 
 def tabuleiros_iguais(tab1,tab2):
     """
-        Compara dois tabuleiros; True se todas as posições coincidirem.
+        Compara dois tabuleiros; True se todas as posicoes coincidirem.
         :param tab1: primeiro tabuleiro
         :param tab2: segundo tabuleiro
-        :return: True se idênticos, False caso contrário
+        :return: True se identicos, False caso contrario
     """
     if not eh_tabuleiro(tab1) or not eh_tabuleiro(tab2):
         return False
@@ -488,8 +488,8 @@ def tabuleiros_iguais(tab1,tab2):
 
 def tabuleiro_para_str(tabuleiro):
     """
-        Gera string representando o tabuleiro para impressão.
-        :param tabuleiro: tabuleiro válido
+        Gera string representando o tabuleiro para impressao.
+        :param tabuleiro: tabuleiro valido
         :return: string formatada do tabuleiro
     """
     if not eh_tabuleiro(tabuleiro):
@@ -509,15 +509,15 @@ def tabuleiro_para_str(tabuleiro):
     return "\n".join(linhas)
 
 
-# ALTERAÇÃO (feito para os testes públicos):
+# ALTERAcaO (feito para os testes publicos):
 # Corrigi o mapeamento do tuplo 3x3 para o tabuleiro:
-# o primeiro índice do tuplo passa a ser a linha (1–3) e o segundo a coluna (a–c),
+# o primeiro indice do tuplo passa a ser a linha (1–3) e o segundo a coluna (a–c),
 # de forma a coincidir com a forma usada nos testes (tipo o teste 12).
 def tuplo_para_tabuleiro(tuplo):
     """
         Converte um tuplo 3x3 de inteiros (-1,0,1) para o tabuleiro interno.
         :param tuplo: tuplo 3x3 de inteiros (-1,0,1)
-        :return: tabuleiro (dicionário)
+        :return: tabuleiro (dicionario)
     """
     if (not isinstance(tuplo, tuple) or len(tuplo) != 3 or
         any(not isinstance(l, tuple) or len(l) != 3 for l in tuplo)):
@@ -527,10 +527,10 @@ def tuplo_para_tabuleiro(tuplo):
     colunas = ['a', 'b', 'c']
     linhas = ['1', '2', '3']
 
-    # li = índice da linha, co = índice da coluna
+    # li = indice da linha, co = indice da coluna
     for li, linha in enumerate(linhas):          # 0→'1', 1→'2', 2→'3'
         for co, coluna in enumerate(colunas):    # 0→'a', 1→'b', 2→'c'
-            inteiro = tuplo[li][co]              # primeiro índice = linha, segundo = coluna
+            inteiro = tuplo[li][co]              # primeiro indice = linha, segundo = coluna
             peca = obter_peca_por_inteiro(inteiro)
             tabuleiro[coluna + linha] = cria_copia_peca(peca)
 
@@ -539,8 +539,8 @@ def tuplo_para_tabuleiro(tuplo):
 def obter_ganhador(tabuleiro):
     """
         Determina o ganhador do tabuleiro.
-        :param tabuleiro: tabuleiro válido
-        :return: peça vencedora ['X']/['O'] ou [' '] se não houver vencedor
+        :param tabuleiro: tabuleiro valido
+        :return: peca vencedora ['X']/['O'] ou [' '] se nao houver vencedor
     """
     if not eh_tabuleiro(tabuleiro):
         raise ValueError("obter_ganhador: argumento invalido")
@@ -565,9 +565,9 @@ def obter_ganhador(tabuleiro):
 
 def obter_peca_por_inteiro(inteiro):
     """
-        Converte inteiro para peça: 1->['X'], -1->['O'], 0->[' '].
-        :param inteiro: inteiro representando a peça
-        :return: peça correspondente
+        Converte inteiro para peca: 1->['X'], -1->['O'], 0->[' '].
+        :param inteiro: inteiro representando a peca
+        :return: peca correspondente
     """
     if inteiro == 1:
         return ["X"]
@@ -579,9 +579,9 @@ def obter_peca_por_inteiro(inteiro):
 def validar_ganhador_coluna(tabuleiro, coluna):
     """
         Verifica se uma coluna tem vencedor; retorna 1, -1 ou 0.
-        :param tabuleiro: tabuleiro válido
+        :param tabuleiro: tabuleiro valido
         :param coluna: coluna a verificar ('a'|'b'|'c')
-        :return: 1 se X ganhar, -1 se O ganhar, 0 caso contrário
+        :return: 1 se X ganhar, -1 se O ganhar, 0 caso contrario
     """
     if not eh_tabuleiro(tabuleiro) or coluna not in ['a', 'b', 'c']:
         raise ValueError("validar_ganhador_coluna: argumentos invalidos")
@@ -595,9 +595,9 @@ def validar_ganhador_coluna(tabuleiro, coluna):
 def validar_ganhador_linha(tabuleiro, linha):
     """
         Verifica se uma linha tem vencedor; retorna 1, -1 ou 0.
-        :param tabuleiro: tabuleiro válido
+        :param tabuleiro: tabuleiro valido
         :param linha: linha a verificar ('1'|'2'|'3')
-        :return: 1 se X ganhar, -1 se O ganhar, 0 caso contrário
+        :return: 1 se X ganhar, -1 se O ganhar, 0 caso contrario
     """
     if not eh_tabuleiro(tabuleiro) or linha not in ['1', '2', '3']:
         raise ValueError("validar_ganhador_linha: argumentos invalidos")
@@ -610,9 +610,9 @@ def validar_ganhador_linha(tabuleiro, linha):
 
 def obter_posicoes_livres(tabuleiro):
     """
-        Retorna tupla com todas as posições livres no tabuleiro.
-        :param tabuleiro: tabuleiro válido
-        :return: tupla de posições livres
+        Retorna tupla com todas as posicoes livres no tabuleiro.
+        :param tabuleiro: tabuleiro valido
+        :return: tupla de posicoes livres
     """
     if not eh_tabuleiro(tabuleiro):
         raise ValueError("obter_posicoes_livres: argumento invalido")
@@ -628,10 +628,10 @@ def obter_posicoes_livres(tabuleiro):
 
 def obter_posicoes_jogador(tabuleiro, peca):
     """
-        Retorna tupla com posições ocupadas pela peça indicada.
-        :param tabuleiro: tabuleiro válido
-        :param peca: peça a procurar
-        :return: tupla de posições onde a peça está presente
+        Retorna tupla com posicoes ocupadas pela peca indicada.
+        :param tabuleiro: tabuleiro valido
+        :param peca: peca a procurar
+        :return: tupla de posicoes onde a peca esta presente
     """
     if not eh_tabuleiro(tabuleiro) or not eh_peca(peca):
         raise ValueError("obter_posicoes_jogador: argumentos invalidos")
@@ -660,10 +660,10 @@ def obter_posicoes_jogador(tabuleiro, peca):
 
 def obter_movimento_manual(t, peca):
     """
-        Lê e valida o movimento escolhido pelo jogador (colocação ou movimento).
+        Le e valida o movimento escolhido pelo jogador (colocacao ou movimento).
         :param t: tabuleiro atual
-        :param peca: peça do jogador
-        :return: tuplo com o movimento: (pos,) para colocação ou (origem,destino) para movimento
+        :param peca: peca do jogador
+        :return: tuplo com o movimento: (pos,) para colocacao ou (origem,destino) para movimento
     """
     if not eh_tabuleiro(t) or not eh_peca(peca):
         raise ValueError("obter_movimento_manual: argumentos invalidos")
@@ -695,7 +695,7 @@ def obter_movimento_manual(t, peca):
             raise ValueError("obter_movimento_manual: escolha invalida")
 
         if posicoes_iguais(posicao_origem, posicao_destino):
-            # passar turno: origem == destino é sempre válido
+            # passar turno: origem == destino e sempre valido
             return (posicao_origem, posicao_destino)
 
         if not eh_posicao_livre(t, posicao_destino):
@@ -711,7 +711,7 @@ def obter_movimento_manual(t, peca):
 def obter_movimento_auto(tabuleiro, peca, dificuldade):
     """
     tabuleiro × peca × str → tuplo de posicoes
-    Devolve um movimento automático de acordo com o nível de dificuldade.
+    Devolve um movimento automatico de acordo com o nivel de dificuldade.
     """
 
     if not eh_tabuleiro(tabuleiro) or not eh_peca(peca) or dificuldade not in ('facil', 'normal', 'dificil'):
@@ -721,10 +721,10 @@ def obter_movimento_auto(tabuleiro, peca, dificuldade):
     fase_colocacao = len(posicoes_jogador) < 3
 
     # ============================================================
-    # FASE DE COLOCAÇÃO
+    # FASE DE COLOCAcaO
     # ============================================================
     if fase_colocacao:
-        # 1) Vitória
+        # 1) Vitoria
         for s in ['a', 'b', 'c', '1', '2', '3']:
             vetor = obter_vetor(tabuleiro, s)
             if sum(1 for p in vetor if pecas_iguais(p, peca)) == 2 and \
@@ -770,7 +770,7 @@ def obter_movimento_auto(tabuleiro, peca, dificuldade):
             if eh_posicao_livre(tabuleiro, pos):
                 return (pos,)
 
-        # fallback (não deve acontecer)
+        # fallback (nao deve acontecer)
         livres = obter_posicoes_livres(tabuleiro)
         return (livres[0],)
 
@@ -818,18 +818,18 @@ def obter_movimento_auto(tabuleiro, peca, dificuldade):
             if eh_posicao_livre(tabuleiro, adj):
                 return (pos, adj)
 
-    # se tudo bloqueado, peça parada
+    # se tudo bloqueado, peca parada
     return (posicoes_jogador[0], posicoes_jogador[0])
 
 
 
-# FUNÇÃO PRINCIPAL DO JOGO
+# FUNcaO PRINCIPAL DO JOGO
 def moinho(peca, nivel):
     """
-        Função principal que realiza o jogo completo entre humano e CPU.
-        :param peca: string '[X]' ou '[O]' indicando peça do jogador
+        Funcao principal que realiza o jogo completo entre humano e CPU.
+        :param peca: string '[X]' ou '[O]' indicando peca do jogador
         :param nivel: dificuldade ('facil','normal','dificil')
-        :return: string representando a peça vencedora ('[X]'/'[O]')
+        :return: string representando a peca vencedora ('[X]'/'[O]')
     """
     if peca not in ('[X]', '[O]') or nivel not in ('facil', 'normal', 'dificil'):
         raise ValueError('moinho: argumentos invalidos')
@@ -865,7 +865,7 @@ def moinho(peca, nivel):
                 tabuleiro = coloca_peca(tabuleiro, cpu, pos)
                 pecas_cpu += 1
         elif pecas_humano < 3:
-            # só humano ainda coloca
+            # so humano ainda coloca
             try:
                 mov = obter_movimento_manual(tabuleiro, jogador)
                 pos = mov[0]
@@ -880,7 +880,7 @@ def moinho(peca, nivel):
             tabuleiro = coloca_peca(tabuleiro, cpu, pos)
             pecas_cpu += 1
 
-    # Fase de movimento  (alterei a parte da peça chamada, nao vai corromper nada dw)
+    # Fase de movimento  (alterei a parte da peca chamada, nao vai corromper nada dw)
     turno = cria_copia_peca(jogador)
     while pecas_iguais(obter_ganhador(tabuleiro), cria_peca(' ')):
         print(tabuleiro_para_str(tabuleiro))
@@ -913,36 +913,36 @@ def moinho(peca, nivel):
 ################################################ 
 def obter_dificuldade():
     """
-        Lê e devolve uma dificuldade válida escolhida pelo utilizador.
-        :return: nível ('facil','normal','dificil')
+        Le e devolve uma dificuldade valida escolhida pelo utilizador.
+        :return: nivel ('facil','normal','dificil')
     """
-    while True: # Lê a dificuldade escrita pelo utilizador e normaliza para minúsculas sem espaços
+    while True: # Le a dificuldade escrita pelo utilizador e normaliza para minusculas sem espacos
         nivel = input("Escolha a dificuldade do jogo (facil, normal, dificil): ").strip().lower()
-        # Só aceita se for uma das opções permitidas
+        # So aceita se for uma das opcoes permitidas
         if nivel in ('facil', 'normal', 'dificil'):
             return nivel
-        # Caso contrário, mostra mensagem de erro e volta a pedir
-        print("Dificuldade inválida. Por favor, escolha entre: facil, normal, dificil.")
+        # Caso contrario, mostra mensagem de erro e volta a pedir
+        print("Dificuldade invalida. Por favor, escolha entre: facil, normal, dificil.")
 
 def jogar_moinho():
     """
-        Função auxiliar que pede opções ao utilizador e inicia o jogo.
+        Funcao auxiliar que pede opcoes ao utilizador e inicia o jogo.
     """
-    # Pede ao utilizador o nível de dificuldade para o CPU
+    # Pede ao utilizador o nivel de dificuldade para o CPU
     dificuldade = obter_dificuldade()
 
-    # Pede ao utilizador para escolher o símbolo com que quer jogar
-    simbolo = input("Escolha seu símbolo [X/O]: ").strip().upper()
+    # Pede ao utilizador para escolher o simbolo com que quer jogar
+    simbolo = input("Escolha seu simbolo [X/O]: ").strip().upper()
 
-    # Garante que o símbolo é válido; se não for, volta a pedir
+    # Garante que o simbolo e valido; se nao for, volta a pedir
     while simbolo not in ('X', 'O'):
-        print("Símbolo inválido. Escolha X ou O.")
-        simbolo = input("Escolha seu símbolo [X/O]: ").strip().upper()
+        print("Simbolo invalido. Escolha X ou O.")
+        simbolo = input("Escolha seu simbolo [X/O]: ").strip().upper()
 
-    # Constrói a peça no formato esperado pela função moinho, por exemplo "[X]" ou "[O]"
+    # Constroi a peca no formato esperado pela funcao moinho, por exemplo "[X]" ou "[O]"
     peca = f'[{simbolo}]'
 
-    # Inicia o jogo do moinho com a peça escolhida e a dificuldade selecionada
+    # Inicia o jogo do moinho com a peca escolhida e a dificuldade selecionada
     moinho(peca, dificuldade)
 
 #jogar_moinho()
